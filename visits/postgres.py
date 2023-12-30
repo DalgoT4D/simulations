@@ -69,3 +69,19 @@ class Postgres:
             print(statement)
         cursor.execute(statement)
         cursor.close()
+
+    def mk_create_table(self):
+        """generate the CREATE TABLE statement"""
+        return """
+            CREATE TABLE IF NOT EXISTS public.visits
+            (
+                id integer NOT NULL DEFAULT nextval('visits_id_seq'::regclass),
+                date date NOT NULL,
+                name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+                gender character varying(10) COLLATE pg_catalog."default" NOT NULL,
+                district character varying(15) COLLATE pg_catalog."default" NOT NULL,
+                age_group character varying(10) COLLATE pg_catalog."default" NOT NULL,
+                health_worker smallint NOT NULL,
+                CONSTRAINT visits_pkey PRIMARY KEY (id)
+            )
+        """
